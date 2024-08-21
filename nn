@@ -1,0 +1,72 @@
+function encriptar() {
+    let texto = document.getElementById("entrada").value;
+    let tituloMensaje = document.getElementById("mensaje");
+    let parrafo = document.getElementById("parrafo");
+    let muñeco = document.getElementById("muñeco");
+    let contenido = document.getElementById("contenido");
+
+    let textoCifrado = texto
+        .replace(/e/gi, "enter")
+        .replace(/i/gi, "imes")
+        .replace(/a/gi, "ai")
+        .replace(/o/gi, "ober")
+        .replace(/u/gi, "ufat");
+
+    if (texto.trim() !== "") {
+        document.getElementById("entrada").value = textoCifrado;
+        tituloMensaje.textContent = "Texto encriptado con éxito";
+        parrafo.textContent = "";
+        muñeco.src = "./img/img.jpg";
+        contenido.innerHTML = `<p>${textoCifrado}</p>`; // Mostrar texto encriptado en la sección de la derecha
+        document.getElementById("copyButton").classList.remove('hidden'); // Mostrar botón de copiar
+        document.getElementById("titulo-mensaje").classList.add('hidden'); // Ocultar el panel informativo
+    } else {
+        muñeco.src = "./img/img.png";
+        tituloMensaje.textContent = "Ningún mensaje fue encontrado";
+        parrafo.textContent = "Ingresa el texto que deseas encriptar o desencriptar";
+        swal("Ooops!", "Debes ingresar un texto", "warning");
+        document.getElementById("copyButton").classList.add('hidden'); // Ocultar botón de copiar
+        document.getElementById("mensaje").classList.remove('hidden'); // Mostrar el panel informativo
+        contenido.innerHTML = ''; // Limpiar la sección de contenido
+    }
+}
+
+function desencriptar() {
+    let texto = document.getElementById("entrada").value;
+    let tituloMensaje = document.getElementById("mensaje");
+    let parrafo = document.getElementById("parrafo");
+    let muñeco = document.getElementById("muñeco");
+    let contenido = document.getElementById("contenido");
+
+    let textoDesencriptado = texto
+        .replace(/enter/gi, "e")
+        .replace(/imes/gi, "i")
+        .replace(/ai/gi, "a")
+        .replace(/ober/gi, "o")
+        .replace(/ufat/gi, "u");
+
+    if (texto.trim() !== "") {
+        document.getElementById("entrada").value = textoDesencriptado;
+        tituloMensaje.textContent = "Texto desencriptado con éxito";
+        parrafo.textContent = "";
+        muñeco.src = "./img/desencriptado.jpg";
+        contenido.innerHTML = `<p>${textoDesencriptado}</p>`; // Mostrar texto desencriptado en la sección de la derecha
+        document.getElementById("copyButton").classList.remove('hidden'); // Mostrar botón de copiar
+        document.getElementById("mensaje").classList.add('hidden'); // Ocultar el panel informativo
+    } else {
+        muñeco.src = "./img/img.png";
+        tituloMensaje.textContent = "Ningún mensaje fue encontrado";
+        parrafo.textContent = "Ingresa el texto que deseas encriptar o desencriptar";
+        swal("Ooops!", "Debes ingresar un texto", "warning");
+        document.getElementById("copyButton").classList.add('hidden'); // Ocultar botón de copiar
+        document.getElementById("mensaje").classList.remove('hidden'); // Mostrar el panel informativo
+        contenido.innerHTML = ''; // Limpiar la sección de contenido
+    }
+}
+
+function copyToClipboard() {
+    const texto = document.getElementById("entrada").value;
+    navigator.clipboard.writeText(texto)
+        .then(() => alert('Texto copiado al portapapeles'))
+        .catch(err => console.error('Error al copiar al portapapeles: ', err));
+}
